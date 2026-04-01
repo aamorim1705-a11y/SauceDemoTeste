@@ -1,0 +1,5 @@
+Existem 3 pontos principais de fragildade em uma automaçao de teste:
+1- seletor errado, seletor mudou, seletor dinamico
+» seletor é como pegamos o elemento, exemplo: inspeciona o codigo e tras tipo data test, username, id (isso é um seletor)
+2 - sincronismo (Tipos de espera - Waits)
+3 - programaçao exótica (maneira como foi construida)
