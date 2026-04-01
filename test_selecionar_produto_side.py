@@ -15,7 +15,6 @@ class TestSelecionarProdutoTeste():
     self.driver = webdriver.Firefox()
     self.vars = {}
     
-  
   def teardown_method(self, method):
     self.driver.quit()
   
