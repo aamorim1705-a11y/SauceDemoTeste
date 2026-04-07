@@ -29,3 +29,4 @@ class Teste_Produtos():
         assert self.driver.find_element(By. CSS_SELECTOR, ".inventory_item:nth-child(1) .inventory_item_price").text == (
             "$29.99" 
         )
+        

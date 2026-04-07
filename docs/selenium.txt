@@ -3,3 +3,18 @@ Existem 3 pontos principais de fragildade em uma automaçao de teste:
 » seletor é como pegamos o elemento, exemplo: inspeciona o codigo e tras tipo data test, username, id (isso é um seletor)
 2 - sincronismo (Tipos de espera - Waits)
 3 - programaçao exótica (maneira como foi construida)
+
+Formas de Criaçao e Organizaçao do Script de Teste
+
+1 - Gravação (Capture & Playback / Record & Play)
+2 - Exportação e Importação de código fonte (Script simples)
+3 – Criar o Script Simples manualmente --» 1 script de teste = 1 arquivo
+4 - 4 – Script com Cucumber / Behave --» 1 teste = 2 arquivos (.feature em Gherking e .py que é o script de automação)
+
+
+BDD = Behavior Driven Develoment = Desenvolvimento Direcionado por Comportamento
+--» Foco no comportamento esperado do software --» Dito pelo PO (Product Owner)
+
+--» Critérios de Aceitação » Sintaxe Gherkin
+Dado – Quando – Então 
+cucumber.io
