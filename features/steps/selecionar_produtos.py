@@ -24,7 +24,7 @@ def step_impl(context, usuario, senha):
 @then(u'sou direcionado para pagina Home')
 def step_impl(context):
     assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == "Products"
-    time.sleep(2)  # espera por 2 segundos - remover depois = alfinete
+    # time.sleep(2)  # espera por 2 segundos - remover depois = alfinete
 
     # teardown / encerramento
     context.driver.quit()
