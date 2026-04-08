@@ -16,7 +16,7 @@ Scenario Outline: Login Negativo
     Then exibe a <mensagem> de erro no login
 
     Examples: 
-    | id |  usuario       |  senha       | mensagem
+    | id |  usuario       |  senha       | mensagem                                                                  |
     | 01 | standard_user  |  laranja     | Epic sadface: Username and password do not match any user in this service |
     | 02 | standard_user  |              | Epic sadface: Password is required                                        |
     | 03 |                | secret_sauce | Epic sadface: Username is required                                        |
