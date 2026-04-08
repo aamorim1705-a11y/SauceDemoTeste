@@ -4,7 +4,6 @@ from behave import given, when, then
 from selenium import webdriver 
 from selenium.webdriver.common.by import By
 
-
 @given(u'que acesso o site Sauce Demo')
 def step_impl(context):
     # Setup / Inicialização
@@ -20,7 +19,6 @@ def step_impl(context, usuario, senha):
     context.driver.find_element(By.ID, "password").send_keys(senha)    # vai no elemento cujo ID é  password e escreve a senha
     context.driver.find_element(By.ID, "login-button").click()         # vai no elemento  cujo ID é botao de login e clica
      
-
 @then(u'sou direcionado para pagina Home')
 def step_impl(context):
     assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == "Products"
@@ -29,6 +27,12 @@ def step_impl(context):
     # teardown / encerramento
     context.driver.quit()
 
-    
+@then(u'exibe a mensagem de erro no login')
+def step_impl(context):
+    # validar a mesnagem de erro
+    assert context.driver.find_element(By.CSS_SELECTOR, "h3").text == "Epic sadface: Username and password do not match any user in this service"
+
+    # teardown / encerramento
+    context.driver.quit()
 
     
