@@ -1,4 +1,4 @@
-Feature: Criar novo usuário
+Feature: Comprar produto
 
     Scenario: Criar novo usuário com sucesso
     Given que acesso o site Giuliana Flores
@@ -14,6 +14,15 @@ Feature: Criar novo usuário
         | numero          | 541                     |
         | telefone        | 71999129773             |    
     Then finalizo o cadastro
+
+    Scenario: Login Positivo
+    Given que acesso o site Giuliana Flores
+    And estou na página de login
+    When preencho o login com:
+        | campo | valor          |
+        | cpf   | 85092871555    |
+        | senha | Mat.Mendes2    |            
+    Then clico em "Continuar" 
     
 
     

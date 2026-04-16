@@ -23,6 +23,7 @@ def remover_banners(context):
 def step_impl(context):
     context.driver = webdriver.Chrome()  
     context.driver.maximize_window()  
+    context.driver.implicitly_wait(10)
     context.driver.delete_all_cookies()
     context.driver.get("https://www.saucedemo.com")  
     
