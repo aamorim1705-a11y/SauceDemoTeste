@@ -1,25 +1,31 @@
 # 1 - Bibliotecas / Imports
-import time
 from behave import given, when, then
-from selenium import webdriver 
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+#=====================
+# HELPERS
+#=====================
+def remover_banners(context):
+    for _ in range(5):
+        context.driver.execute_script("""
+            document.querySelectorAll(
+                'div[class*="cookie"], div[class*="modal"], div[role="dialog"], div[class*="DPOEasy"], .overlay'
+            ).forEach(function(e) { e.remove(); });
+        """)
+
 # ================
 # LOGIN 
 # ================ 
-
 @given(u'que acesso o site Sauce Demo')  
 def step_impl(context):
-    # Setup / Inicialização
-    context.driver = webdriver.Chrome()  # instanciar o objeto do Selenium Webdriver especializado para o Chrome 
-    context.driver.maximize_window()     # maximiza a janela do navegador
-    context.driver.implicitly_wait(10)   # esperar até 10 segundos por qualquer elemento
-    # Passo do teste em si
+    context.driver = webdriver.Chrome()  
+    context.driver.maximize_window()  
     context.driver.delete_all_cookies()
-    context.driver.get("https://www.saucedemo.com")  # abrir o naveador no endereço do site alvo
- 
+    context.driver.get("https://www.saucedemo.com")  
+    
 @when(u'preencho os campos de login com usuario {usuario} e senha {senha}')
 def step_impl(context, usuario, senha):
     context.driver.find_element(By.ID, "user-name").send_keys(usuario)  
@@ -28,12 +34,12 @@ def step_impl(context, usuario, senha):
 
 @then(u'sou direcionado para pagina Home')
 def step_impl(context):
+    remover_banners(context)
     assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == "Products"
 
 # =========================
 # ADICIONAR PRODUTO 
-# =========================   
- 
+# =========================    
 @when(u'adiciono o produto "Sauce Labs Backpack" no carrinho')
 def step_impl(context):
     context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click() 
@@ -41,14 +47,10 @@ def step_impl(context):
 @when(u'acesso o carrinho')
 def step_impl(context):
     context.driver.find_element(By.CLASS_NAME, "shopping_cart_link").click() 
-    WebDriverWait(context.driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "shopping_cart_link"))
-)
-   
+    
 # =========================
 # VALIDAR PRODUTO
 # =========================
-
 @then(u'devo visualizar o produto "Sauce Labs Backpack" no carrinho')
 def step_impl(context):
     assert context.driver.find_element(By.CLASS_NAME, "inventory_item_name").text == "Sauce Labs Backpack"  
@@ -60,8 +62,7 @@ def step_impl(context):
     
 # =========================
 # REMOÇAO PRODUTO + LOGOUT
-# =========================
-    
+# =========================    
 @when(u'removo o produto "Sauce Labs Backpack" do carrinho')
 def step_impl(context):
     context.driver.find_element(By.ID, "remove-sauce-labs-backpack").click()    
