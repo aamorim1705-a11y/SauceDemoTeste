@@ -68,7 +68,7 @@ def after_scenario(context, scenario):
 # ====================
 # LOGIN POSITIVO 
 # ==================== 
-@when(u'preencho o login com:')
+@when(u'preencho o login com dados validos:')
 def step_impl(context):
     dados = {}
     for row in context.table:
@@ -83,6 +83,34 @@ def step_impl(context):
         EC.element_to_be_clickable((By.ID, "ContentSite_ibtContinue"))
     ) 
     context.driver.find_element(By.ID, "ContentSite_ibtContinue").click()  
+
+# teardown / encerramento
+def after_scenario(context, scenario):
+    if hasattr(context, "driver"):
+        context.driver.quit()
+
+# ==========================
+# LOGIN COM SENHA INVALIDA
+# ===========================
+@when(u'preencho o login com dados invalidos:')
+def step_impl(context):
+    dados = {}
+    for row in context.table:
+        dados[row['campo']] = row['valor'] 
+    context.driver.find_element(By.ID, "ContentSite_txtEmail").send_keys(dados['cpf'])    
+    context.driver.find_element(By.ID, "ContentSite_txtPassword").send_keys(dados['senha'])   
+       
+@when(u'clico em "Continuar"')
+def step_impl(context):
+    remover_banners(context) 
+    WebDriverWait(context.driver, 10).until(
+        EC.element_to_be_clickable((By.ID, "ContentSite_ibtContinue"))
+    ) 
+    context.driver.find_element(By.ID, "ContentSite_ibtContinue").click()  
+
+@then(u'exibe a mensagem de erro no login')
+def step_impl(context):
+    assert context.driver.find_element(By.CSS_SELECTOR, ".font_erro").text == "Verifique o E-mail ou CPF digitado!"
 
 # teardown / encerramento
 def after_scenario(context, scenario):

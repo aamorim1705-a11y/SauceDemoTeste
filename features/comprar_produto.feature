@@ -18,11 +18,22 @@ Feature: Comprar produto
     Scenario: Login Positivo
     Given que acesso o site Giuliana Flores
     And estou na página de login
-    When preencho o login com:
+    When preencho o login com dados validos:
         | campo | valor          |
         | cpf   | 85092871555    |
-        | senha | Mat.Mendes2    |            
-    Then clico em "Continuar" 
+        | senha | Mat.Mendes2    |                
+    Then clico em "Continuar"
+
+    Scenario: Login com a senha invalida
+    Given que acesso o site Giuliana Flores
+    And estou na página de login
+    When preencho o login com dados invalidos:
+        | campo | valor          |
+        | cpf   | 85092871555    |
+        | senha | laranja        |            
+    And clico em "Continuar" 
+    Then exibe a mensagem de erro no login
+
     
 
     
