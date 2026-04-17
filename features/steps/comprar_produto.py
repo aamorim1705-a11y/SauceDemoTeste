@@ -110,7 +110,7 @@ def step_impl(context):
 
 @then(u'exibe a mensagem de erro no login')
 def step_impl(context):
-    assert context.driver.find_element(By.CSS_SELECTOR, ".font_erro").text == "Verifique o E-mail ou CPF digitado!"
+    assert context.driver.find_element(By.CSS_SELECTOR, ".font_erro").text == "e-mail ou senha inválidos!"
 
 # teardown / encerramento
 def after_scenario(context, scenario):

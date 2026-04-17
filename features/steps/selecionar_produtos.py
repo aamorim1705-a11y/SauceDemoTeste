@@ -43,6 +43,7 @@ def step_impl(context):
 # =========================    
 @when(u'adiciono o produto "Sauce Labs Backpack" no carrinho')
 def step_impl(context):
+    remover_banners(context)
     context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click() 
         
 @when(u'acesso o carrinho')
