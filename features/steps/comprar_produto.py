@@ -117,3 +117,60 @@ def after_scenario(context, scenario):
     if hasattr(context, "driver"):
         context.driver.quit()
 
+# ====================
+# FLUXO DE COMPRA 
+# ==================== 
+@given('busco pelo produto:')
+def step_impl(context):
+    dados = {}
+    for row in context.table:
+        dados[row['campo']] = row['valor'] 
+    context.driver.find_element(By.ID, "txtDsKeyWord").send_keys(dados['produto'])
+    context.driver.find_element(By.ID, "btnSearch").click() 
+
+@given('informo o CEP de entrega:')
+def step_impl(context):
+    dados = {}
+    for row in context.table:
+        dados[row['campo']] = row['valor'] 
+    context.driver.find_element(By.ID, "inputSearchAddress").send_keys(dados['cep']) 
+     
+@given('confirmo o endereço selecionado')
+def step_impl(context):
+    WebDriverWait(context.driver, 20).until(
+        EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, 'li.itemAddress[data-zipcode="40300790"]')
+        )
+    ) 
+    context.driver.find_element(By.CSS_SELECTOR, 'li.itemAddress[data-zipcode="40300790"]').click()
+
+    WebDriverWait(context.driver, 10).until(
+        EC.element_to_be_clickable(
+        (By.CSS_SELECTOR, ".apply-button")
+        )
+    )
+    context.driver.find_element(By.CSS_SELECTOR, ".apply-button").click()
+
+@when('adiciono o produto ao carrinho')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.element_to_be_clickable(
+        (By.XPATH, "//img[@alt='Língua de Gato Duas Unidades 170G']")
+        )
+    )
+    context.driver.find_element(By.XPATH, "//img[@alt='Língua de Gato Duas Unidades 170G']").click()
+    context.driver.find_element(By.ID, "ContentSite_lbtBuy").click()
+
+@when('confirmo um horário de entrega valido')
+def step_impl(context):
+    context.driver.find_element(By.CSS_SELECTOR, "input.jPeriodRadio").click()
+    context.driver.find_element(By.ID, "btConfirmShippingData").click()
+
+@then('devo visualizar a página do carrinho com o produto adicionado')
+def step_impl(context):
+    assert context.driver.find_element(By.CSS_SELECTOR, 'img[alt="Língua de Gato Duas Unidades 170G"]').get_attribute("alt") == "Língua de Gato Duas Unidades 170G"
+    
+# teardown / encerramento
+def after_scenario(context, scenario):
+    if hasattr(context, "driver"):
+        context.driver.quit()    

@@ -34,6 +34,19 @@ Feature: Comprar produto
     And clico em "Continuar" 
     Then exibe a mensagem de erro no login
 
+    Scenario: Fluxo de compra 
+    Given que acesso o site Giuliana Flores
+    And busco pelo produto:
+        | campo   | valor                             |
+        | produto | Língua de Gato Duas Unidades 170G |
+    And informo o CEP de entrega:
+        | campo | valor    |
+        | cep   | 40300790 |
+    And confirmo o endereço selecionado
+    When adiciono o produto ao carrinho
+    And confirmo um horário de entrega valido
+    Then devo visualizar a página do carrinho com o produto adicionado
+    
     
 
     
